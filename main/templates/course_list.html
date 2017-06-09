@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h3 class="page-header">
+            {{category}}
+        </h3>
+       
+        <table class="table table-bordered table-hover">
+            <tr style="background-color: #E33622;color: white;">
+                <th>Sl.No</th>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Course Duration</th>
+            </tr>
+            {% for course in courses %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{course.code}}</td>
+                <td>{{course.name}}</td>
+                <td>{{course.duration}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+    </div>
+</div>
+{% endblock %}
