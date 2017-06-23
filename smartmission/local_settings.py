@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'smartindiamission',
         'USER': 'root',
-        'PASSWORD': 'root123@!@#',
+        'PASSWORD': 'root123',
         'HOST':'',
         'PORT':'',
     }
