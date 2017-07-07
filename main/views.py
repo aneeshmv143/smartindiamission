@@ -39,5 +39,9 @@ def course_list(request, pk):
 def contact(request):
 	response = {}
 	response.update({'course_categories': CourseCategory.objects.all()})
-
 	return render_to_response('contact.html', response)
+
+def registration(request):
+	response = {}
+	response.update({'course_categories': CourseCategory.objects.all()})	
+	return render_to_response('registration.html', response)
