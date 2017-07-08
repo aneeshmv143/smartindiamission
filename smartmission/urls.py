@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^course/list/(?P<pk>\w+)/$', main.views.course_list, name='course_list'),
     url(r'^contact/$', main.views.contact, name='contact'),
     url(r'^registration/$', main.views.registration, name='registration'),
+    url(r'^login/$', main.views.login, name='login'),
 ]

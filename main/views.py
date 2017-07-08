@@ -45,3 +45,11 @@ def registration(request):
 	response = {}
 	response.update({'course_categories': CourseCategory.objects.all()})	
 	return render_to_response('registration.html', response)
+
+def login(request):
+	response = {}
+	response.update({'course_categories': CourseCategory.objects.all()})
+	if request.method == 'GET':
+		return render_to_response('login.html', response)
+	else:
+		raise Http404	
