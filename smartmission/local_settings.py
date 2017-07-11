@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'course',
     'siteadmin',
     'smartmissionconfig',
+    'static_data',
 
 ]
 

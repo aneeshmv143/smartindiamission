@@ -30,4 +30,7 @@ urlpatterns = [
     url(r'^contact/$', main.views.contact, name='contact'),
     url(r'^registration/$', main.views.registration, name='registration'),
     url(r'^login/$', main.views.login, name='login'),
+    url(r'^logout/$', main.views.logout, name='logout'),
+
+    url(r'^siteadmin/', include('siteadmin.urls', namespace='siteadmin')),
 ]
