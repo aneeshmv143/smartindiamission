@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'course',
-
+    'siteadmin',
+    'smartmissionconfig',
+    'static_data',
 ]
 
 MIDDLEWARE_CLASSES = [
