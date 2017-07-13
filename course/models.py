@@ -30,4 +30,14 @@ class Course(models.Model):
 	def __str__(self):
 		return self.category.title +'->' + self.name
 
+#Course Subject
+class CourseSubject(models.Model):
+	course = models.ForeignKey(Course, on_delete=models.CASCADE)
+	subject_code = models.CharField(max_length=255)
+	subject_name = models.CharField(max_length=255)
+	description = models.TextField(null=True, blank=True)
+
+	def __str__(self):
+		return self.course.name + '->' + self.subject_name
+
 		

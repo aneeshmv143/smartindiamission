@@ -14,25 +14,23 @@
         </div>
         <div class="col-md-9">
             <h3 class="page-header">
-            {{category}}
+            {{course.name}} <span class="text-danger">( {{course.duration}} )</span>
             </h3>
-       
             <table class="table table-bordered table-hover">
                 <tr style="background-color: #E33622;color: white;">
                     <th>Sl.No</th>
-                    <th>Course Code</th>
-                    <th>Course Name</th>
-                    <th>Course Duration</th>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
                 </tr>
-                {% for course in courses %}
+                {% for course in course_details %}
                 <tr>
                     <td>{{forloop.counter}}</td>
-                    <td>{{course.code}}</td>
-                    <td><a href="/course/details/{{course.pk}}/">{{course.name}}</a></td>
-                    <td>{{course.duration}}</td>
+                    <td>{{course.subject_code}}</td>
+                    <td>{{course.subject_name}}</td>
                 </tr>
                 {% endfor %}
             </table>    
+            <a href="/course/list/{{course.category.pk}}/" class="pull-right">Back</a>
         </div>
     </div>
 </div>

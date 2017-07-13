@@ -7,7 +7,7 @@ from django.template.context_processors import csrf
 
 from django.core.urlresolvers import reverse
 
-from course.models import CourseCategory, Course
+from course.models import CourseCategory, Course, CourseSubject
 from main.models import UserProfile
 
 from smartmissionconfig.user_types import UserType
@@ -91,3 +91,13 @@ def logout(request):
     auth_logout(request)
     #response.update({'logout':True})
     return HttpResponseRedirect('/')			
+
+#Course Details
+def course_details(request, pk):
+	response = {}
+	response.update({'course_categories': CourseCategory.objects.all()})
+
+	course = get_object_or_404(Course, pk=pk)
+	response.update({'course': course})
+	response.update({'course_details': CourseSubject.objects.filter(course=course)})
+	return render_to_response('course_details.html', response)    

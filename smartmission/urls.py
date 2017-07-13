@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^objectives/$', main.views.objectives, name='objectives'),
     url(r'^workplan/$', main.views.workplan, name='workplan'),
     url(r'^course/list/(?P<pk>\w+)/$', main.views.course_list, name='course_list'),
+    url(r'^course/details/(?P<pk>\w+)/$', main.views.course_details, name='course_details'),
     url(r'^contact/$', main.views.contact, name='contact'),
     url(r'^registration/$', main.views.registration, name='registration'),
     url(r'^login/$', main.views.login, name='login'),
