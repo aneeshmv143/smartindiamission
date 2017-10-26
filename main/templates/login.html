@@ -40,7 +40,10 @@
                             </div>
                         </div>
                     </form>
-                </div>  
+                </div> 
+                {% if invalid_login %}
+                    <div class="alert alert-danger">Invalid Username or Password</div>
+                {% endif %} 
             </div>
         </div>    
         <div class="col-lg-3">

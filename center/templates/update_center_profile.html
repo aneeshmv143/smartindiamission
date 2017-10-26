@@ -1,0 +1,162 @@
+{% extends "center_base.html" %}
+{% block content %}
+<section id="main-content">
+    <section class="wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-user-md"></i> Smartindia Center Profile</h3>
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+                <li><i class="fa fa-user-md"></i>Profile</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+        <!-- Update-profile -->
+            <div id="update-profile">
+                <section class="panel">                                          
+                    <div class="panel-body bio-graph-info">
+                        <h1> Center Info</h1>
+                        <form class="form-horizontal" id="profileUpdate">{% csrf_token%}                                                  
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Organisation Name</label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="center_name" name="center_name" placeholder="" required="" value="{{user_profile.user.first_name}}">
+                                </div>
+                            </div>
+                               
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Address</label>
+                                <div class="col-lg-10">
+                                    <textarea name="address1" id="center_address" class="form-control" cols="25" rows="5" required="">{{user_profile.address1}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">State</label>
+                                <div class="col-lg-6">
+                                    <select name="state" id="state" class="form-control" required="">
+                                        <option value="">Select</option>
+                                        {% for state in states %}
+                                        <option value="{{state.pk}}">{{state.state}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">District</label>
+                                <div class="col-lg-6">
+                                    <select name="district" id="district" class="form-control" required="">
+                                        <option value="0">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Pincode</label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="pincode" name="pincode" placeholder=" " required="" value="{{user_profile.pincode}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Natutre of Organisation</label>
+                                <div class="col-lg-6">
+                                    <select name="nature" id="center_type" class="form-control" required="">
+                                        <option value="0">Select</option>
+                                        <option value="1">Charitable Society</option>
+                                        <option value="2">Trust</option>
+                                        <option value="3">Proprietary</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Registration No</label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="reg_no" name="reg_no" placeholder="" required="" value="{{user_profile.reg_no}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Registration Date</label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="reg_date" value="2011-08-19" name="reg_date" placeholder="" required="" value="{{user_profile.reg_date}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Website URL</label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="website_url" name="website" placeholder="" value="{{user_profile.website}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Mobile No</label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="mobile_no" name="mobile_no" placeholder="" required="" value="{{user_profile.mobile_no}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+                                    <button type="button" class="btn btn-danger">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+      <!-- page end-->
+  </section>
+</section>
+      <!--main content end-->
+
+{% endblock %}
+{% block custom_js %}
+<script type="text/javascript">
+    $('#state').change(function(e){
+        e.preventDefault();
+        var state = $(this).val();
+        if (state == '')
+            {
+                return;
+            }
+        $.ajax({
+            url: '/ajax/districts/',
+            data: {state: state},
+        })
+        .done(function(data) {
+            $('#district').html(data)
+        })
+    });
+
+    $('#profileUpdate').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        var btn = $('#profileUpdate').find('#saveBtn');
+        btn.attr('disabled', 'disabled');
+        $.ajax({
+            url: '/center/profile/update/',
+            type: 'POST',
+            data: form.serializeArray(),
+        })
+        .done(function(data){
+            if (data.status == false){
+                new PNotify({
+                    title: 'Error in Updation!',
+                    text: data.message,
+                    type: 'danger',
+                    styling: 'bootstrap3'
+                });
+            }
+            else{
+                new PNotify({
+                    title: 'Profile Successfully Updated!',
+                    text: data.message,
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+            }
+        })
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,247 @@
+{% extends 'siteadmin_base.html' %}
+{% block content %}
+<section id="main-content">
+    <section class="wrapper">            
+        <!--overview start-->
+       <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-laptop"></i> Course Category</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="/siteadmin/dashboard/">Home</a></li>
+                    <li><i class="fa fa-laptop"></i>Course Category</li>                          
+                </ol>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <section class="panel">
+                    <div class="panel-body">
+                    <h4><strong>COURSE CATEGORY LIST</strong><a href="#" class="btn btn-large btn-info pull-right" id="addCategory">Add New Course Catgory</a> </h4>
+                    <br>
+                    <table class="table table-bordered" cellspacing="0" width="100%" id="categoryTable">
+                        <thead>
+                            <tr>
+                                <th>Category No</th>
+                                <th>Category Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in categories %}
+                            <tr id="tr_{{category.id}}">
+                                <td>{{forloop.counter}}</td>
+                                <td id="td_{{category.id}}">{{category.title}}</td>
+                                <td><a class=" editCategory btn btn-success" href="#" id="editCategory_{{category.id}}" pk="{{category.id}}"><i class="icon_check_alt2"></i></a> <a class=" delCategory btn btn-danger" href="#" id="deleteCategory_{{category.id}}" pk="{{category.id}}"><i class="icon_close_alt2"></i></a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                       
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-4" id="newCategory">
+                <section class="panel" id="newCategorySection">
+                    <div class="panel-body">
+                        <h4><strong  class="form-title">ADD CATEGORY</strong></h4><br>
+                        <form class="form-horizontal" id="newCategoryForm"> {% csrf_token %}
+                        <!-- Category Title-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="content">Course Category</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" name="title" id="category_title" required="">
+                            </div>
+                        </div> 
+                        <!-- Category Description-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Category Description</label>
+                            <div class="col-lg-10">                               
+                                <textarea class="form-control" name="description" id="description"></textarea> 
+                            </div>
+                        </div>              
+                        <!-- Buttons -->
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-9">
+                                <button type="submit" class="btn btn-info" id="saveBtn">Save Category</button>
+                                <a type="submit" class="btn btn-danger" href="#" id="cancelForm">Cancel</a>
+                                <button type="reset" class="btn btn-default">Reset</button>
+                             </div>
+                        </div>
+                    </form>    
+                    </div>
+                </section>
+                <section class="panel" id="editCategorySection">
+                    <div class="panel-body">
+                        <h4><strong  class="form-title">EDIT CATEGORY</strong></h4><br>
+                        <form class="form-horizontal" id="editCategoryForm"> {% csrf_token %}
+                        <!-- Category Title-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="content">Course Category</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" name="title" id="edit_category_title" required="">
+                            </div>
+                        </div> 
+                        <!-- Category Description-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Category Description</label>
+                            <div class="col-lg-10">                               
+                                <textarea class="form-control" name="description" id="edit_description"></textarea> 
+                            </div>
+                        </div>              
+                        <!-- Buttons -->
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-9">
+                                <button type="submit" class="btn btn-info" id="updateBtn">Update Category</button>
+                                <a type="submit" class="btn btn-danger" href="#" id="cancelEditForm">Cancel</a>
+                                <button type="reset" class="btn btn-default">Reset</button>
+                             </div>
+                        </div>
+                        <input type="hidden" name="category_id" id="category_id">
+                    </form>    
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>    
+</section>
+{% endblock %}
+
+{% block custom_js %}
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('#newCategory').hide();
+        $('#categoryTable').DataTable();
+    });
+    $('#addCategory').click(function(){
+        $('#newCategory').show(); 
+        $('#editCategorySection').hide();
+        $('#newCategorySection').show();
+    });
+    $('#cancelForm').click(function(){
+        $('#newCategory').hide();    
+    });
+    $('#cancelEditForm').click(function(){
+        $('#editCategorySection').hide();    
+    });
+    $('#newCategoryForm').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+            url: '/siteadmin/course/category/',
+            type: 'POST',
+            data: form.serializeArray(),
+        })
+        .done(function(data){
+            document.forms["newCategoryForm"].reset();
+            var rowCount = $('table#categoryTable tr:last').index() + 1;
+            if (data.status == false){
+                new PNotify({
+                    title: 'Error!',
+                    text: data.message,
+                    type: 'danger',
+                    styling: 'bootstrap3'
+                });
+            }
+            else{
+                new PNotify({
+                    title: 'Success',
+                    text: data.message,
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+            $('#categoryTable > tbody:last').append('<tr id="tr_'+ data.category_id +'"><td>'+ rowCount +'</td><td>'+ data.category + '</td><td><a class="btn btn-success" href=""><i class="icon_check_alt2"></i></a> <a class= "delCategory btn btn-danger" href="#" id="deleteCategory_'+ data.category_id +'"pk='+ data.category_id +'><i class="icon_close_alt2"></i></a></td></tr>'); 
+            }
+        })
+    });
+    $('.delCategory').click(function(){
+        var category = $(this).attr('pk');
+        if (confirm("Are you sure to delete this category now ?")){
+            $.ajax({
+                url: '/siteadmin/course/category/delete/',
+                type:'GET',
+                data: {'category': category}
+            })
+            .done(function(data){
+                if (data.status == false){
+                    new PNotify({
+                        title: 'Error!',
+                        text: data.message,
+                        type: 'danger',
+                        styling: 'bootstrap3'
+                    });
+                }
+                else{
+                    new PNotify({
+                        title: 'Success',
+                        text: data.message,
+                        type: 'success',
+                        styling: 'bootstrap3'
+                    });     
+                } 
+                $('#tr_'+data.category).fadeOut();      
+            })
+            return false;
+        }
+        else{
+            return;
+        }
+    })
+    $('.editCategory').click(function(){
+        $('#newCategory').show();
+        $('#newCategorySection').hide();
+        $('#editCategorySection').show();
+        var category = $(this).attr('pk');
+        $.ajax({
+            url: '/siteadmin/course/category/edit/',
+            type:'GET',
+            data: {'category': category}
+        })
+        .done(function(data){
+            if (data.status == false){
+                new PNotify({
+                    title: 'Error!',
+                    text: data.message,
+                    type: 'danger',
+                    styling: 'bootstrap3'
+                });
+            } 
+            else{
+                $('#edit_category_title').val(data.title);
+                $('#edit_description').text(data.description);
+                $('#category_id').val(data.id)
+            }   
+        })
+    })
+    $('#editCategoryForm').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+            url: '/siteadmin/course/category/edit/',
+            type: 'POST',
+            data: form.serializeArray(),
+        })
+        .done(function(data){
+            $("#editCategoryForm").trigger("reset");
+            $('#edit_description').val('');
+            if (data.status == false){
+                new PNotify({
+                    title: 'Error!',
+                    text: data.message,
+                    type: 'danger',
+                    styling: 'bootstrap3'
+                });
+            }
+            else{
+                new PNotify({
+                    title: 'Success',
+                    text: data.message,
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+                $('#td_'+data.id).html(data.title);
+            }
+        })
+    });
+</script>
+{% endblock %}

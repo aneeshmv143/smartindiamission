@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <br><br><br>
+            {% if invalid_access %}
+                <p class="text-danger">Email verification filed! Please try again.</p>
+            {% endif %}
+            {% if valid_access %}
+                <p class="text-success"> Your email verified successfully! Please click <a href="/login/">here</a> to login.</p>
+            {% endif %}
+            <br><br><br>
+        </div>    
+    </div>
+</div>
+{% endblock %}

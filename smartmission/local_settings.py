@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'siteadmin',
     'smartmissionconfig',
     'static_data',
-
+    'rest_framework',
+    'center',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'smartmission.context_processors.get_category',
             ],
         },
     },
@@ -108,6 +110,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+#MAIL SERVER
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'info@smartindiamission.org'
+EMAIL_HOST_PASSWORD = 'smartmission@123'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'SmartindiaMission'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
 # Internationalization

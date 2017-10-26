@@ -1,0 +1,182 @@
+{% extends "center_base.html" %}
+{% block content %}
+<section id="main-content">
+    <section class="wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-user-md"></i> Smartindia Center Profile</h3>
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+                <li><i class="fa fa-user-md"></i>Profile</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <!-- profile-widget -->
+        <div class="col-lg-12">
+            <div class="profile-widget profile-widget-info">
+                <div class="panel-body">
+                    <div class="col-lg-2 col-sm-2">
+                        <h4>{{user_profile.user.first_name}}</h4>               
+                        <div class="follow-ava">
+                            <img src="img/profile-widget-avatar.jpg" alt="">
+                        </div>
+                        <h6>Administrator</h6>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 follow-info">
+                        <p><strong>Complete your application by updating the following details!</strong></p>
+                        <p>{{user_profile.user.email}}</p>
+                        <h6>
+                            <span><i class="icon_calendar"></i>Date Joined : {{user_profile.user.date_joined}}</span>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- page start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading tab-bg-info">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#profile">
+                                <i class="icon-user"></i>
+                                Part I - Center
+                            </a>
+                        </li>
+                        <li class="">
+                            <a data-toggle="tab" href="#functionary">
+                                <i class="icon-user"></i>
+                                Part II - Chief Functionary
+                            </a>
+                        </li>
+                        <li class="">
+                            <a data-toggle="tab" href="#courses">
+                                <i class="icon-user"></i>
+                                Part III - Courses
+                            </a>
+                        </li>
+                    </ul>
+                </header>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <!-- Center profile -->
+                        <div id="profile" class="tab-pane active">
+                            <section class="panel">
+                                <div class="panel-body bio-graph-info">
+                                    <h1>Bio Graph</h1>
+                                    <div class="row">
+                                        <div class="bio-row">
+                                            <p><span>Organisation Name</span>: {{user_profile.user.first_name}} </p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Address (Office)</span>: {{user_profile.address1}}</p>
+                                        </div>  
+                                        <div class="bio-row">
+                                            <p><span>State</span>: {{user_profile.district.state}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>District</span>: {{user_profile.district}}</p>
+                                        </div>                                            
+                                        <div class="bio-row">
+                                            <p><span>Telephone No</span>: {{user_profile.mobile_no}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Reg. No </span>: {{user_profile.reg_no}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Reg. Date </span>: {{user_profile.reg_date}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Nature of the Organisation </span>: {{user_profile.nature}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Website </span>: {{user_profile.website}}</p>
+                                        </div>
+                                    </div>
+                                    <a href="/center/profile/update/" class="btn btn-large btn-primary">Update Center Profile</a>
+                                </div>
+                            </section>
+                        </div>
+                        <!-- Chief Functionary-->
+                        <div id="functionary" class="tab-pane">
+                            <section class="panel">
+                                <div class="panel-body bio-graph-info">
+                                    <h1>Chief Functionary</h1>
+                                    <div class="row">
+                                        <div class="bio-row">
+                                            <p><span>Name</span>: {{chief_functionary.name}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Designation</span>: {{chief_functionary.designation}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Address</span>: {{chief_functionary.address}}</p>
+                                        </div>                                              
+                                        <div class="bio-row">
+                                            <p><span>Email</span>: {{chief_functionary.email}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Mobile No </span>: {{chief_functionary.mobile_no}}</p>
+                                        </div>
+                                    </div>
+                                    <a href="/center/functionary/update/" class="btn btn-large btn-primary">Update Functionary Details</a>
+                                </div>
+                            </section>
+                        </div>
+                        <!-- Courses-->
+                        <div id="courses" class="tab-pane">
+                            <section class="panel">
+                                <div class="panel-body bio-graph-info">
+                                    <h1>Courses</h1>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <select name="course_category" id="course_category" class="form-control">
+                                                <option value="0">Select</option>
+                                                {% for category in course_categories %}
+                                                <option value="{{category.pk}}">{{category.title}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <a href="" class="btn btn-default">View Course List</a>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg-6" id="course_list">
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+      <!-- page end-->
+  </section>
+</section>
+      <!--main content end-->
+
+{% endblock %}
+
+{% block custom_js %}
+<script type="text/javascript">
+    $("#course_category").change(function(){
+        var category = $(this).val();
+        $.ajax({
+            url: '/ajax/courses/',
+            type: 'GET',
+            data: {category: category}
+        })
+        .done(function(data){
+            $("#course_list").html(data);
+        })
+    });
+</script>
+{% endblock %}

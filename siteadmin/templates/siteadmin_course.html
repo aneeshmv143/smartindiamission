@@ -1,0 +1,385 @@
+{% extends "siteadmin_base.html" %}
+{% block content %}
+<section id="main-content">
+    <section class="wrapper">            
+        <!--overview start-->
+       <div class="row">
+        <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-laptop"></i> Course List</h3>
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href="/siteadmin/dashboard/">Home</a></li>
+                <li><i class="fa fa-laptop"></i>Course List</li>                          
+            </ol>
+        </div>
+       </div>
+      
+        <div class="row">
+            <div class="col-lg-4">
+                <select id="course_category" name="course_category" class="form-control">
+                    <option value="0">Select Course Category</option>
+                    {% for category in categories %}
+                    <option value="{{category.pk}}">{{category.title}}</option>
+                    {% endfor %}
+                </select>
+            </div>     
+        </div><!--/.row-->
+        <div class="row">
+            <div class="col-lg-8" >
+            <br>
+                <section class="panel">
+                    <div class="panel-body">
+                        <h4><strong>COURSE LIST</strong><a href="#" class="btn btn-large btn-info pull-right" id="addCourse">Add New Course</a> </h4><br>
+                        <table class="table table-bordered" id="courseTable">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Course Code</th>
+                                    <th>Course Name</th>
+                                    <th>Duration</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="course">
+                            
+                            </tbody>
+                        </table>    
+                    </div>    
+                </section>
+            </div>
+            <div class="col-lg-4" id="newCourse">
+                <br>
+                <section class="panel" id="addCourseSection">
+                    <div class="panel-body">
+                        <h4><strong>ADD COURSE</strong></h4>
+                        <form class="form-horizontal" id="newCourseForm"> {% csrf_token %}
+                        <!-- Course Code-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Course Code</label>
+                            <div class="col-lg-10">                               
+                                <input type="text" class="form-control" name="code" placeholder="Course Code" required="" id="course_code"> 
+                                <p id="code_message"></p> 
+                            </div>
+                        </div>                          
+                        <!-- Course Name-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Course Name</label>
+                            <div class="col-lg-10">                               
+                                <input type="text" class="form-control" name="name" placeholder="Course Name" required="" id="course_name">  
+                            </div>
+                        </div>
+                        <!-- Course Duration-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Course Duration</label>
+                            <div class="col-lg-10">                               
+                                <select class="form-control" name="duration" id="course_duration" required="">
+                                    <option value="">Select Course Duration</option>
+                                    {% for duration in course_duration %}
+                                    <option value="{{duration.pk}}">{{duration.duration}}</option>
+                                    {% endfor %}
+                                </select>  
+                            </div>
+                        </div>              
+                        <!-- Course Description-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Course Description</label>
+                            <div class="col-lg-10">                               
+                                <textarea class="form-control" name="description"></textarea> 
+                            </div>
+                        </div>              
+                        <!-- Buttons -->
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-9">
+                                <button type="submit" class="btn btn-primary" id="saveBtn">Save Course</button>
+                                <a type="submit" class="btn btn-danger" href="#" id="cancelBtn">Cancel</a>
+                                <button type="reset" class="btn btn-default">Reset</button>
+                             </div>
+                        </div>
+                    </form>    
+                    </div>
+                </section>
+                <section class="panel" id="editCourseSection">
+                    <div class="panel-body">
+                        <h4><strong>EDIT COURSE</strong></h4>
+                        <form class="form-horizontal" id="editCourseForm"> {% csrf_token %}
+                        <!-- Course Category-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Course Category</label>
+                            <div class="col-lg-10">                               
+                                <select class="form-control" name="category" id="edit_course_category" required="">
+                                    <option value="">Select Course Category</option>
+                                    {% for category in categories %}
+                                    <option value="{{category.pk}}">{{category.title}}</option>
+                                    {% endfor %}
+                                </select>  
+                            </div>    
+                        </div>
+                        <!-- Course Code-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Course Code</label>
+                            <div class="col-lg-10">                               
+                                <input type="text" class="form-control" name="code" placeholder="Course Code" required="" id="edit_course_code"> 
+                                <p id="code_message"></p> 
+                            </div>
+                        </div>                          
+                        <!-- Course Name-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Course Name</label>
+                            <div class="col-lg-10">                               
+                                <input type="text" class="form-control" name="name" placeholder="Course Name" required="" id="edit_course_name">  
+                            </div>
+                        </div>
+                        <!-- Course Duration-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Course Duration</label>
+                            <div class="col-lg-10">                               
+                                <select class="form-control" name="duration" id="edit_course_duration" required="">
+                                    <option value="">Select Course Duration</option>
+                                    {% for duration in course_duration %}
+                                    <option value="{{duration.pk}}">{{duration.duration}}</option>
+                                    {% endfor %}
+                                </select>  
+                            </div>
+                        </div>              
+                        <!-- Course Description-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Course Description</label>
+                            <div class="col-lg-10">                               
+                                <textarea class="form-control" name="edit_description"></textarea> 
+                            </div>
+                        </div>              
+                        <!-- Buttons -->
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-9">
+                                <button type="submit" class="btn btn-primary" id="updateBtn">Update Course</button>
+                                <a type="submit" class="btn btn-danger" href="#" id="canBtn">Cancel</a>
+                                <button type="reset" class="btn btn-default">Reset</button>
+                             </div>
+                        </div>
+                        <input type="hidden" name="course_id" id="course_id">
+                    </form>    
+                    </div>
+                </section>
+            </div>
+        </div>                     
+    </section>    
+</section>
+{% endblock %}
+
+{% block custom_js %}
+
+<script type="text/javascript">
+     $( document ).ready(function() {
+        $('#newCourse').hide();
+        $('#addCourse').hide();
+    });
+    $('#course_category').change(function(e){
+        e.preventDefault();
+        $('#course').html('');
+        $('#newCourse').hide();
+        var id = $(this).val();
+        if (id === ''){
+           return;
+        }
+        $.ajax({
+            type  : 'GET',
+            url   : '/siteadmin/ajax/courses/',
+            cache : false,
+            data  : 'course_category=' + id,
+            success : function(data){
+                var data = JSON.parse(data);
+                for(i=1; i< data.length; i++){
+                        $('#course').append('<tr id="tr_'+data[i].pk+'"><td>'+ i +'</td><td id="td_code_'+data[i].pk+'">' + data[i].fields.code +'</td><td id="td_name_'+data[i].pk+'">'+data[i].fields.name+'</td><td id="td_duration_'+data[i].pk+'">'+data[i].fields.duration+'</td>'+ '<td><div class="btn-group">'+
+                                      '<a class=" editCourse btn btn-success" href="#" id="course_id_'+data[i].pk+'" course_id="'+data[i].pk+'"><i class="icon_check_alt2"></i></a>'+
+                                      '<a class=" delCourse btn btn-danger" href="#" id="course_'+data[i].pk+'" pk="'+data[i].pk+'"><i class="icon_close_alt2"></i></a>'+
+                                  '</div></td>'+'</tr>')
+                    } 
+                    $('.delCourse').click(function(){
+                        var course = $(this).attr('pk');
+                        if (confirm("Are you sure to delete this course now ?")){
+                        $.ajax({
+                            url: '/siteadmin/course/delete/',
+                            type:'GET',
+                            data: {'course': course}
+                        })
+                        .done(function(data){
+                            if (data.status == false){
+                                new PNotify({
+                                    title: 'Error!',
+                                    text: data.message,
+                                    type: 'danger',
+                                    styling: 'bootstrap3'
+                                });
+                            }
+                            else{
+                                new PNotify({
+                                    title: 'Success',
+                                    text: data.message,
+                                    type: 'success',
+                                    styling: 'bootstrap3'
+                                });     
+                            } 
+                            $('#tr_'+course).fadeOut();      
+                            })
+                            return false;
+                            }
+                        else{
+                            return;
+                        }
+                    })
+                    $('.editCourse').click(function(){
+                        $('#newCourse').show();
+                        $('#editCourseSection').show();
+                        $('#addCourseSection').hide();
+                        var course = $(this).attr('course_id');
+                        $.ajax({
+                            url: '/siteadmin/course/edit/',
+                            type:'GET',
+                            data: {'course': course}
+                        })
+                        .done(function(data){
+                            $('#edit_course_code').val(data.course_code);
+                            $('#edit_course_name').val(data.course_name);
+                            $('#course_id').val(data.course_id)
+                        })
+                    })
+                    $('#edit_course_code').focusout(function(){
+                        var course_code = $(this).val()
+                        if (course_code == ''){
+                            $('#code_message').removeClass();
+                            $('#code_message').addClass('text-danger');
+                            $('#code_message').html('Course code is required!')
+                            return;
+                        }
+                        $.ajax({
+                            url: '/siteadmin/ajax/coursecode/',
+                            type: 'GET',
+                            data: {'course_code': course_code}
+                        })
+                        .done(function(data){
+                            if (data.status == true){
+                                $('#code_message').removeClass();
+                                $('#code_message').addClass('text-success');
+                                $('#code_message').html(data.message)   
+                            }
+                            else{
+                                $('#code_message').removeClass();
+                                $('#code_message').addClass('text-danger');
+                                $('#code_message').html(data.message) 
+                            }
+                        })
+                    });
+                    $('#addCourse').show();
+                    $('#course_code').focus(); 
+                },  
+            error : function(data){
+                alert('Please Select Course Category');
+                $('#addCourse').hide();
+            }
+        });
+    });
+    $('#addCourse').click(function(){
+        $('#newCourse').show();
+        $('#addCourseSection').show();
+        $('#editCourseSection').hide();
+    }) 
+    $('#cancelBtn').click(function(){
+        $('#newCourse').hide();
+    })
+    $('#course_code').focusout(function(){
+        var course_code = $(this).val()
+        if (course_code == ''){
+            $('#code_message').removeClass();
+            $('#code_message').addClass('text-danger');
+            $('#code_message').html('Course code is required!')
+            return;
+        }
+        $.ajax({
+            url: '/siteadmin/ajax/coursecode/',
+            type: 'GET',
+            data: {'course_code': course_code}
+        })
+        .done(function(data){
+            if (data.status == true){
+                $('#code_message').removeClass();
+                $('#code_message').addClass('text-success');
+                $('#code_message').html(data.message)   
+            }
+            else{
+                $('#code_message').removeClass();
+                $('#code_message').addClass('text-danger');
+                $('#code_message').html(data.message) 
+            }
+        })
+    });
+
+    $('#newCourseForm').submit(function(e){
+        e.preventDefault()
+        var category = $('#course_category').val()
+        var form = $(this).serializeArray();
+        form.push({name: 'category', value: category});
+        $('#saveBtn').attr('value', 'Saving Course...')
+        $.ajax({
+            url: '/siteadmin/course/',
+            type: 'POST',
+            data: $.param(form),
+        })
+        .done(function(data){
+            document.forms["newCourseForm"].reset();
+            var row_Count = $('table#courseTable tr:last').index() + 1;
+            $('#code_message').remove();
+            $('#saveBtn').attr('value', 'Save Course');
+            if (data.status == false){
+                new PNotify({
+                    title: 'Error!',
+                    text: data.message,
+                    type: 'danger',
+                    styling: 'bootstrap3'
+                });
+            }
+            else{
+                new PNotify({
+                    title: 'Success',
+                    text: data.message,
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+            }
+            $('#courseTable > tbody:last').append('<tr><td>'+ row_Count +'</td><td>'+ data.course_code +'</td><td>'+ data.course_name +'</td><td>'+ data.duration + '</td><td>' + '<a class="editCourse btn btn-success"><i class="icon_check_alt2" href="#"></i> </a> <a class="deleteCourse btn btn-danger" href="#"><i class="icon_close_alt2"></i></a></td></tr>');
+        })
+    })
+    $('#editCourseForm').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+            url: '/siteadmin/course/edit/',
+            type: 'POST',
+            data: form.serializeArray(),
+        })
+        .done(function(data){
+            $("#editCourseForm").trigger("reset");
+            $('#edit_description').val('');
+            if (data.status == false){
+                new PNotify({
+                    title: 'Error!',
+                    text: data.message,
+                    type: 'danger',
+                    styling: 'bootstrap3'
+                });
+            }
+            else{
+                new PNotify({
+                    title: 'Success',
+                    text: data.message,
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+                $('#td_code_'+data.id).html(data.code);
+                $('#td_name_'+data.id).html(data.name);
+            }
+        })
+    });
+    $('#canBtn').click(function(){
+        $('#editCourse').hide();
+    })
+</script>
+{% endblock %}

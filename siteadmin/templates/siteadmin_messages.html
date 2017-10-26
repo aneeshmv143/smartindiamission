@@ -1,0 +1,56 @@
+{% extends "siteadmin_base.html" %}
+{% block content %}
+<section id="main-content">
+    <section class="wrapper">            
+        <!--overview start-->
+       <div class="row">
+        <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-laptop"></i> Contact Messages</h3>
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href="/siteadmin/dashboard/">Home</a></li>
+                <li><i class="fa fa-laptop"></i>Contact Messages</li>                          
+            </ol>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8" >
+                {% if course_edited %}
+                <div class="alert alert-success fade in">
+                    <button data-dismiss="alert" class="close close-sm" type="button">
+                        <i class="icon-remove"></i>
+                    </button>
+                    <strong>Well done!</strong> Course details edited successfully!
+                </div> 
+                {% endif %}              
+                <section class="panel">
+                    <table class="table table-striped table-advance table-hover">
+                        <thead>
+                            <tr>
+                                <th>Sl No</th>
+                                <th>Name</th>
+                                <th>Mobile</th>
+                                <th>Email</th>
+                                <th>Date</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody id="course">
+                            {% for message in messages %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{message.name}}</td>
+                                <td>{{message.contact_no}}</td>
+                                <td>{{message.email}}</td>
+                                <td>{{message.date}}</td>
+                                <td><a href="">Read Message</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        </table>
+                      </section>
+                  </div>
+              </div>
+
+    </section>    
+</section>
+{% endblock %}

@@ -16,9 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+import main.views
+
 admin.autodiscover()
 
-import main.views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
@@ -32,6 +33,14 @@ urlpatterns = [
     url(r'^registration/$', main.views.registration, name='registration'),
     url(r'^login/$', main.views.login, name='login'),
     url(r'^logout/$', main.views.logout, name='logout'),
+    url(r'^contact/message/$', main.views.contact_message, name='contact_message'),
+    url(r'^register/$', main.views.register, name='register'),
+    url(r'^account/activation/$', main.views.account_activation, name='account_activation'),
+    url(r'^ajax/districts/$', main.views.ajax_districts, name='ajax_districts'),
+    url(r'^ajax/courses/$', main.views.ajax_courses, name='ajax_courses'),
 
     url(r'^siteadmin/', include('siteadmin.urls', namespace='siteadmin')),
+    url(r'^center/', include('center.urls', namespace='center')),
+
+    url(r'^api/courses/', main.views.CourseListAPI.as_view(), name='list-course-api'),
 ]

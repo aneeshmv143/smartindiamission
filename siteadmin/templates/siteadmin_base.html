@@ -8,19 +8,27 @@
     <title>Smartindia Mission</title>
 
     <!-- Bootstrap CSS -->    
-    <link href="/static/siteadmin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/smuser/css/bootstrap.min.css" rel="stylesheet">
     <!-- bootstrap theme -->
-    <link href="/static/siteadmin/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="/static/smuser/css/bootstrap-theme.css" rel="stylesheet">
     <!--external css-->
     <!-- font icon -->
-    <link href="/static/siteadmin/css/elegant-icons-style.css" rel="stylesheet" />
-    <link href="/static/siteadmin/css/font-awesome.min.css" rel="stylesheet" />    
+    <link href="/static/smuser/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="/static/smuser/css/font-awesome.min.css" rel="stylesheet" />    
     <!-- Custom styles -->
-	<link href="/static/siteadmin/css/widgets.css" rel="stylesheet">
-    <link href="/static/siteadmin/css/style.css" rel="stylesheet">
-    <link href="/static/siteadmin/css/style-responsive.css" rel="stylesheet" />
-	<link href="/static/siteadmin/css/xcharts.min.css" rel=" stylesheet">	
-	<link href="/static/siteadmin/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+	<link href="/static/smuser/css/widgets.css" rel="stylesheet">
+    <link href="/static/smuser/css/style.css" rel="stylesheet">
+    <link href="/static/smuser/css/style-responsive.css" rel="stylesheet" />
+	<link href="/static/smuser/css/xcharts.min.css" rel=" stylesheet">	
+	<link href="/static/smuser/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+
+    <!-- PNotify -->
+    <link href="/static/smission/css/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="/static/smission/css/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="/static/smission/css/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+
+    <!-- Data Table-->
+    <link rel="stylesheet" type="text/css" href="/static/smuser/css/jquery.dataTables.min.css">
   </head>
 
   <body>
@@ -305,8 +313,9 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="/siteadmin/course/new/">New Course</a></li>                          
-                          <li><a class="" href="/siteadmin/course/list/">Course List</a></li>
+                            <li><a class="" href="/siteadmin/course/category/">Course Category</a></li>                       
+                            <li><a class="" href="/siteadmin/course/">Course</a></li>
+                            <li><a class="" href="/siteadmin/course/subject/">Subject</a></li>
                       </ul>
                   </li>       
                   <li class="sub-menu">
@@ -332,7 +341,16 @@
                           <li><a class="" href="basic_table.html">Basic Table</a></li>
                       </ul>
                   </li>
-                  
+                  <li class="sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_comment"></i>
+                          <span>Messages</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="/siteadmin/message/list/">Contact Message</a></li>
+                      </ul>
+                  </li>
                   <li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="icon_documents_alt"></i>
@@ -360,17 +378,27 @@
   </section>
   <!-- container section start -->
     <!-- javascripts -->
-    <script src="/static/siteadmin/js/jquery.js"></script>
+    <script src="/static/smuser/js/jquery.js"></script>
     <script src="js/jquery-1.8.3.min.js"></script>
     <!-- bootstrap -->
-    <script src="/static/siteadmin/js/bootstrap.min.js"></script>
+    <script src="/static/smuser/js/bootstrap.min.js"></script>
     <!-- nice scroll -->
-    <script src="/static/siteadmin/js/jquery.scrollTo.min.js"></script>
-    <script src="/static/siteadmin/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="/static/smuser/js/jquery.scrollTo.min.js"></script>
+    <script src="/static/smuser/js/jquery.nicescroll.js" type="text/javascript"></script>
    
     <!--custome script for all page-->
-    <script src="/static/siteadmin/js/scripts.js"></script>
-    <!-- custom script for this page-->
-    {% block custom_js %} {% endblock %}
+    <script src="/static/smuser/js/scripts.js"></script>
+    
+     <!-- PNotify -->
+    <script src="/static/smission/js/pnotify/dist/pnotify.js"></script>
+    <script src="/static/smission/js/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="/static/smission/js/pnotify/dist/pnotify.nonblock.js"></script>
+
+    <!-- Data Tables -->
+    <script type="text/javascript" src="/static/smuser/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/smuser/js/jquery.dataTables.min.js"></script>
+    
+    {% block custom_js %} 
+    {% endblock %}
   </body>
 </html>

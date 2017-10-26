@@ -1,0 +1,172 @@
+{% extends 'siteadmin_base.html' %}
+{% block content %}
+<section id="main-content">
+    <section class="wrapper">            
+        <!--overview start-->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-laptop"></i> Course Subject</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="/siteadmin/dashboard/">Home</a></li>
+                    <li><i class="fa fa-laptop"></i>Course Subject</li>                          
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <select id="course_category" name="course_category" class="form-control">
+                    <option value="0">Select Course Category</option>
+                    {% for category in categories %}
+                    <option value="{{category.pk}}">{{category.title}}</option>
+                    {% endfor %}
+                </select>
+            </div>  
+            <div class="col-lg-4">
+                <select id="course" name="course" class="form-control">
+                    <option value="0">Select Course</option>
+                    
+                </select>
+            </div>   
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <br>
+                <section class="panel" id="subjectSection">
+                    <div class="panel-body">
+                    <h4><strong>SUBJECT LIST</strong><a href="#" class="btn btn-large btn-info pull-right" id="addSubject">Add New Subject</a> </h4>
+                    <br>
+                    <table class="table table-bordered" id="subjectTable">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Subject Code</th>
+                                <th>Subject Name</th>
+                                <th>Subject Type</th>
+                                <th>Max Marks</th>
+                                <th>Min Marks</th>
+                                <th>Actions</th>
+                            </tr>  
+                        </thead>
+                        <tbody id="subjectItems">
+                                    
+                        </tbody>
+                    </table>
+                       
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-4">
+                <br>
+                <section class="panel" id="newSubjectSection">
+                    <div class="panel-body">
+                        <h4><strong  class="form-title">ADD SUBJECT</strong></h4><br>
+                        <form class="form-horizontal" id="newSubjectForm"> {% csrf_token %}
+                        <!-- Subject Code-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="content">Subject Code</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" name="subject_code" id="subject_code" required="">
+                            </div>
+                        </div> 
+                        <!-- Subject Name-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Subject Name</label>
+                            <div class="col-lg-10">                               
+                                <input type="text" class="form-control" name="subject_name" id="subject_name" required=""> 
+                            </div>
+                        </div>
+                        {{form}}
+                        <!-- Subject Category-->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Subject Type</label>
+                            <div class="col-lg-10">                               
+                                <select name="subject_type" class="form-control">
+                                    <option value="0">Select</option>
+                                    {% for a in form.fields.subject_choices.choices %}
+                                    <option value="">{{a}}</option>
+                                    {% endfor %}
+                                </select> 
+                            </div>
+                        </div>               
+                        <!-- Buttons -->
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-9">
+                                <button type="submit" class="btn btn-info" id="saveBtn">Save Subject</button>
+                                <a type="submit" class="btn btn-danger" href="#" id="cancelForm">Cancel</a>
+                                <button type="reset" class="btn btn-default">Reset</button>
+                             </div>
+                        </div>
+                    </form>    
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>    
+</section>
+{% endblock %}
+
+{% block custom_js %}
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('#subjectSection').hide();
+        $('#newSubjectSection').hide();
+    });
+    $('#course_category').change(function(e){
+        e.preventDefault();
+        var category = $(this).val();
+        if (category == 0)
+        {   
+            $('#course').empty();
+            $('#course').append('<option value="'+0+'">Select Course</option>');
+            return; 
+        }
+        else{
+            $('#course').empty();
+            $('#course').append('<option value="'+0+'">Select Course</option>');
+            $.ajax({
+                url: '/siteadmin/ajax/courses/',
+                type: 'GET',
+                data: {'course_category': category}
+            })
+            .done(function(data){
+                var data = JSON.parse(data);
+                for(i=1; i< data.length; i++){
+                    $('#course').append('<option value="'+data[i].pk+'">'+data[i].fields.name+'</option>')
+                }
+            })    
+        }
+        
+    })
+    $('#course').change(function(e){
+        e.preventDefault();
+        var course = $(this).val();
+        if (course == 0){
+            $('#subjectSection').hide();
+            return;
+        }
+        else{
+            $('#subjectSection').show();
+            $('#subjectItems').html('');
+            $.ajax({
+                url : '/siteadmin/ajax/subjects/',
+                type : 'GET',
+                cache : false,
+                data : {'course': course},
+                success : function(data){
+                    data = JSON.parse(data);
+                    for(i=0; i< data.length; i++){
+                        $('#subjectItems').append('<tr><td>'+ (i+1) +'</td><td>'+ data[i].fields.subject_code+'</td><td>'+ data[i].fields.subject_name +'</td><td>'+ data[i].fields.subject_choice+'</td><td>'+ data[i].fields.max_mark +'</td><td>'+ data[i].fields.min_mark+'</td><td><div class="btn-group">'+
+                                      '<a class=" editSubject btn btn-success" href="#" id="subject_id_'+data[i].pk+'" subject_id="'+data[i].pk+'"><i class="icon_check_alt2"></i></a>'+
+                                      '<a class=" delSubject btn btn-danger" href="#" id="subject_'+data[i].pk+'" pk="'+data[i].pk+'"><i class="icon_close_alt2"></i></a>'+
+                                  '</div></td></tr>')
+                    }
+                }
+            })
+        }  
+    })
+    $('#addSubject').click(function(e){
+        e.preventDefault();
+        $('#newSubjectSection').show();
+    })
+</script>
+{% endblock %}

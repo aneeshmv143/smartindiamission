@@ -1,84 +1,94 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="container">
-    <h3 class="page-header">Contact Us</h3>
-    <div class="row">
-            <!-- Map Column -->
-            <div class="col-md-8">
-                <!-- Embedded Google Map -->
-                <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.in/maps?q=8.496588,76.95841&amp;num=1&amp;vpsrc=6&amp;sll=8.49637,76.957592&amp;sspn=0.022071,0.032015&amp;ie=UTF8&amp;t=m&amp;z=14&amp;ll=8.496415,76.958824&amp;output=embed"></iframe>
-            </div>
-            <!-- Contact Details Column -->
-            <div class="col-md-4">
-                <h3>Contact Details</h3>
-                <p>
-                    Smartindia Mission <br>
-                    Smartindia Bhavan <br>
-                    Thycaud PO, Thiruvananthapuram - 14
-                </p>
-                <p><i class="fa fa-phone"></i> 
-                    <abbr title="Phone">P</abbr>: (0471) 2338841</p>
-                <p><i class="fa fa-envelope-o"></i> 
-                    <abbr title="Email">E</abbr>: <a href="mailto:info@smartindiamission.org">info@smartindiamission.org</a>
-                </p>
-                <p><i class="fa fa-clock-o"></i> 
-                    <abbr title="Hours">H</abbr>: Monday - Saturday: 9:30 AM to 5:30 PM</p>
-                <ul class="list-unstyled list-inline list-social-icons">
-                    <li>
-                        <a href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-linkedin-square fa-2x"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- /.row -->
+{% extends 'base.html' %}
 
-        <!-- Contact Form -->
-        <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+{% block content %}
+<!--Contact Form Area Start-->
+<div class="contact-form-area section-padding">
+    <div class="container">
         <div class="row">
-            <div class="col-md-8">
-                <h3>Send us a Message</h3>
-                <form name="sentMessage" id="contactForm" novalidate>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Full Name:</label>
-                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your name.">
-                            <p class="help-block"></p>
+            <div class="col-md-4">
+                <h4 class="contact-title">contact info</h4>
+                <div class="contact-text">
+                    <p><span class="c-icon"><i class="zmdi zmdi-phone"></i></span><span class="c-text">0471 2338841, 2338840</span></p>
+                    <p><span class="c-icon"><i class="zmdi zmdi-email"></i></span><span class="c-text">info@smartindiamission.org</span></p>
+                    <p><span class="c-icon"><i class="zmdi zmdi-pin"></i></span><span class="c-text">Smartindia Mission, Opposite Police Ground<br>
+                    Thycaud PO, Thiruvananthapuram - 14</span></p>
+                </div>
+                <h4 class="contact-title">social media</h4>
+                <div class="link-social">
+                    <a href="https://www.facebook.com/smartindiamission/" target="_blank"><i class="zmdi zmdi-facebook"></i></a>
+                    <a href="https://twitter.com/smartindmission" target="_blank"><i class="zmdi zmdi-twitter"></i></a>
+                    <a href="https://www.linkedin.com/company-beta/13348689" target="_blank"><i class="zmdi zmdi-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <h4 class="contact-title">send your massage</h4>
+                <form id="contactForm">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" name="name" placeholder="Name" id="name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="contact_no" placeholder="Contact No" id="contact_no" required>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="email" name="email" placeholder="Email" id="email" required>
+                        </div>
+                        <div class="col-md-12">
+                            <textarea name="message" cols="30" rows="10" placeholder="Message" id="message" required></textarea>
+                            <button type="submit" class="button-default">SUBMIT</button>
                         </div>
                     </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Phone Number:</label>
-                            <input type="tel" class="form-control" id="phone" required data-validation-required-message="Please enter your phone number.">
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Email Address:</label>
-                            <input type="email" class="form-control" id="email" required data-validation-required-message="Please enter your email address.">
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Message:</label>
-                            <textarea rows="10" cols="100" class="form-control" id="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
-                        </div>
-                    </div>
-                    <div id="success"></div>
-                    <!-- For success/fail messages -->
-                    <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
             </div>
-
         </div>
-        <!-- /.row -->
+    </div>
 </div>
+<!--End of Contact Form-->
+<!--Google Map Area Start-->
+<div class="google-map-area">
+    <!--  Map Section -->
+    <div id="contacts" class="map-area">
+        <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.in/maps?q=8.496588,76.95841&amp;num=1&amp;vpsrc=6&amp;sll=8.49637,76.957592&amp;sspn=0.022071,0.032015&amp;ie=UTF8&amp;t=m&amp;z=14&amp;ll=8.496415,76.958824&amp;output=embed"></iframe>
+    </div>
+</div>
+<!--End of Google Map Area-->
+                
+{% endblock %}                
+
+{% block custom_js %}
+
+<script type="text/javascript">
+    $('#contactForm').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+            url: '/contact/message/',
+            type: 'POST',
+            data: form.serializeArray(),
+        })
+        .done(function(data){
+            $('#name').val('');
+            $('#contact_no').val('');
+            $('#email').val('');
+            $('#message').val('');
+            if (data.status == false){
+                new PNotify({
+                    title: 'Not Send!',
+                    text: data.message,
+                    type: 'danger',
+                    styling: 'bootstrap3'
+                });
+            }
+            else{
+                new PNotify({
+                    title: 'Success',
+                    text: data.message,
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+            }
+        })
+    });
+</script>
+
 {% endblock %}

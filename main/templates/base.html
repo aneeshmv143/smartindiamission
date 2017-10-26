@@ -1,156 +1,471 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>SmartindiaMission || A Division of Bharat Sevak Samaj</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+		<!-- favicon
+		============================================ -->		
+        <link rel="shortcut icon" type="/static/smission/image/x-icon" href="/static/smission/img/favicon.ico">
+		
+		<!-- Google Fonts
+		============================================ -->		
+        <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,800' rel='stylesheet' type='text/css'>
+	   
+		<!-- Bootstrap CSS
+		============================================ -->		
+        <link rel="stylesheet" href="/static/smission/css/bootstrap.min.css">
+        
+		<!-- Color Swithcer CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/color-switcher.css">
+        
+		<!-- Fontawsome CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/font-awesome.min.css">
+        
+		<!-- Owl Carousel CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/owl.carousel.css">
+        
+		<!-- jquery-ui CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/jquery-ui.css">
+        
+		<!-- Meanmenu CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/meanmenu.min.css">
+        
+		<!-- Animate CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/animate.css">
+        
+		<!-- Animated Headlines CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/animated-headlines.css">
+        
+        <!-- Nivo slider CSS
+		============================================ -->
+		<link rel="stylesheet" href="/static/smission/lib/nivo-slider/css/nivo-slider.css" type="text/css" />
+		<link rel="stylesheet" href="/static/smission/lib/nivo-slider/css/preview.css" type="text/css" media="screen" />
+        
+		<!-- Metarial Iconic Font CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/material-design-iconic-font.css">
+        <link rel="stylesheet" href="/static/smission/css/material-design-iconic-font.min.css">
+        
+		<!-- Slick CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/slick.css">
+        
+		<!-- Video CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/jquery.mb.YTPlayer.css">
+        
+		<!-- Style CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/style.css">
+        
+		<!-- Color CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/color.css">
+        
+		<!-- Responsive CSS
+		============================================ -->
+        <link rel="stylesheet" href="/static/smission/css/responsive.css">
+        
+		<!-- Modernizr JS
+		============================================ -->		
+        <script src="/static/smission/js/vendor/modernizr-2.8.3.min.js"></script>
 
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="google-site-verification" content="hKXgVF_Qu5cqrlOf125z9I_6tjqhuhWE7EJS5kYAeY4" />
-
-    <title>Smartindia Mission - A Division of Bharat Sevak Samaj</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="/static/css/modern-business.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
-</head>
-
-<body style="font-family: 'Oxygen', sans-serif;">
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/"><strong style="font-size: 25px;">Smartindia Mission</strong></a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="http://www.bharatsevaksamaj.org" target="_blank"><strong>BSS</strong></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>Courses <b class="caret"></b></strong></a>
-                        <ul class="dropdown-menu">
-                            {% for category in course_categories %}
-                            <li>
-                                <a href="/course/list/{{category.pk}}/">{{category.title}}</a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>Downloads <b class="caret"></b></strong></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="https://s3.amazonaws.com/smartindiacdn/Smartindia Mission_prospectus_web_new.pdf" target="_blank">Prospectus</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="/contact/"><strong>Contact</strong></a>
-                    </li>
-                    <!--
-                    <li> 
-                        <a href="/register/ " class="btn btn-info"><strong>Register</strong></a>
-                    </li>
-                    <li>
-                        <a href="/login/" class="btn btn-warning"><strong>Login</strong></a>
-                    </li>
-                    -->
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    
-    {% block content %} 
-          
-    {% endblock %}
-  
- 
-    <!-- /.container -->
-    <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <nav class="navbar navbar-inverse" role="navigation">
-        			<div class="container">
-                        <div class="col-lg-3">
-           				<!-- Collect the nav links, forms, and other content for toggling -->
-            			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-               				<ul class="nav navbar-nav navbar-right">
-                    			<li>
-                        			<a href="about.html"><strong>Copyright © smartindiamission.org 2017</strong></a>
-                    			</li>
-             				</ul>
-            			</div>
+        <!-- PNotify -->
+        <link href="/static/smission/css/pnotify/dist/pnotify.css" rel="stylesheet">
+        <link href="/static/smission/css/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+        <link href="/static/smission/css/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+	    
+        <!-- Color Css Files
+		============================================ -->	
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/color-one.css" title="color-one" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/color-two.css" title="color-two" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/color-three.css" title="color-three" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/color-four.css" title="color-four" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/color-five.css" title="color-five" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/color-six.css" title="color-six" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/color-seven.css" title="color-seven" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/color-eight.css" title="color-eight" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/color-nine.css" title="color-nine" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/color-ten.css" title="color-ten" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/color-ten.css" title="color-ten" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/pattren1.css" title="pattren1" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/pattren2.css" title="pattren2" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/pattren3.css" title="pattren3" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/pattren4.css" title="pattren4" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/pattren5.css" title="pattren5" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/background1.css" title="background1" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/background2.css" title="background2" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/background3.css" title="background3" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/background4.css" title="background4" media="screen" />
+        <link rel="alternate stylesheet" type="text/css" href="/static/smission/switcher/background5.css" title="background5" media="screen" />
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <!--Main Wrapper Start-->
+        <div class="as-mainwrapper">
+            <!--Bg White Start-->
+            <div class="bg-white">
+                <!--Header Area Start-->
+                <header>
+                    <div class="header-top">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-7 col-md-6 col-sm-5 hidden-xs">
+                                    <span>Have any question? 1800-123-2003 (Toll Free)</span>
+                                </div>
+                                <div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+                                    <div class="header-top-right">
+                                        <div class="content"><a href="/login/"><i class="zmdi zmdi-account"></i> Login</a></div>
+                                        <div class="content"><a href="/register/"><i class="zmdi zmdi-account-add"></i> Register</a></div>
+                                        <div class="content"><a href="#"><i class="zmdi zmdi-library"></i> Terms</a></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-3">
-                            
+                    </div>
+                    <div class="header-logo-menu sticker">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="logo">
+                                        <a href="/"><img src="/static/img/logo_L2.png"></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 hidden-sm hidden-xs">
+                                    <div class="mainmenu-area pull-right">
+                                        <div class="mainmenu">
+                                            <nav>
+                                                <ul id="nav">
+                                                    <li class="current"><a href="/">Home</a>
+                                                    </li>
+                                                    <li><a href="/about/">About</a></li>
+                                                    <li><a href="http://www.bharatsevaksamaj.org/" target="_blank">BSS</a></li>
+                                                    <li><a href="#">Administration</a></li>
+                                                    <li><a href="#">Courses</a>
+                                                        <ul class="sub-menu">
+                                                            {% for category in categories %}
+                                                            <li><a href="/course/list/{{category.pk}}/">{{category.title}}</a></li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#">Downloads</a>
+                                                        <ul class="sub-menu">
+                                                            <li><a href="https://s3.amazonaws.com/smartindiacdn/Smartindia%20Mission_prospectus_web_new.pdf" target="_blank">Prospectus</a></li>
+                                                            <li><a href="#">Application Form<i class="zmdi zmdi-chevron-right"></i></a>
+                                                                <ul class="inside-menu">
+                                                                    <li><a href="#">Smartindia Center</a></li>
+                                                                    <li><a href="#">Student</a></li>
+                                                                    <li><a href="#">Student ID Card</a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="/contact/">Contact</a></li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-6">
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>
-                                    <a href="/about/">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="/objectives/">Objectives</a>
-                                </li>
-                                <li>
-                                    <a href="/workplan/">Work Plan</a>
-                                </li>
-                                <li>
-                                    <a href="#">Terms</a>
-                                </li>
-                                <li>
-                                    <a href="/contact/">Contact</a>
-                                </li>
-                            </ul>
+                    </div>  
+                    <!-- Mobile Menu Area start -->
+                    <div class="mobile-menu-area">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="mobile-menu">
+                                        <nav id="dropdown">
+                                            <ul>
+                                                <li><a href="index.html">HOME</a>
+                                                    <ul>
+                                                        <li><a href="index.html">Slider Style 1</a></li>
+                                                        <li><a href="index-2.html">Slider Style 2</a></li>
+                                                        <li><a href="index-3.html">Background Image</a></li>
+                                                        <li><a href="index-4.html">Image Overlay Light</a></li>
+                                                        <li><a href="index-5.html">Image Overlay Dark</a></li>
+                                                        <li><a href="index-6.html">Menu With Slider</a></li>
+                                                        <li><a href="index-7.html">Menu With Image</a></li>
+                                                        <li><a href="index-8.html">Menu With Overlay</a></li>
+                                                        <li><a href="index-9.html">Video Background</a></li>
+                                                        <li><a href="index-10.html">Fixed Image</a></li>
+                                                        <li><a href="index-11.html">Overlay Fixed Image</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="about.html">About Us</a></li>
+                                                <li><a href="courses.html">Courses</a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="courses-details.html">Courses Details</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="shop-grid.html">Shop</a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="product-details.html">Product Details</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="event.html">Event</a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="event-details.html">Event Details</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="index.html">Shortcode</a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="shortcode-course.html">Courses</a></li>
+                                                        <li><a href="shortcode-event.html">Event</a></li>
+                                                        <li><a href="shortcode-latest-news.html">Latest News</a></li>
+                                                        <li><a href="shortcode-product.html">Product</a></li>
+                                                        <li><a href="shortcode-testimonial.html">Testimonial</a></li>
+                                                        <li><a href="shortcode-contact-form.html">Contact Form</a></li>
+                                                        <li><a href="shortcode-map.html">Map</a></li>
+                                                        <li><a href="shortcode-facts.html">Facts</a></li>
+                                                        <li><a href="image-gallery.html">Image Gallery</a></li>
+                                                        <li><a href="video-gallery.html">Video Gallery</a></li>
+                                                        <li><a href="shortcode-alerts.html">Alerts</a></li>
+                                                        <li><a href="shortcode-button.html">Button</a></li>
+                                                        <li><a href="shortcode-breadcrumbs.html">Breadcrumb</a></li>
+                                                        <li><a href="shortcode-dropdown.html">Dropdown</a></li>
+                                                        <li><a href="shortcode-pagination.html">Pagination</a></li>
+                                                        <li><a href="shortcode-progressbar.html">Progressbar</a></li>
+                                                        <li><a href="text-animation-1.html">Text Animation 1</a></li>
+                                                        <li><a href="text-animation-2.html">Text Animation 2</a></li>
+                                                        <li><a href="text-animation-3.html">Text Animation 3</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="latest-news.html">Latest News</a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="news-details.html">News Details</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="index.html">Features</a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="#">Sliders</a>
+                                                            <ul>
+                                                                <li><a href="slider-style-1.html">Slider Style 1</a></li>
+                                                                <li><a href="slider-style-2.html">Slider Style 2</a></li>
+                                                                <li><a href="slider-style-3.html">Slider Style 3</a></li>
+                                                                <li><a href="background-image.html">Image Background </a></li>
+                                                                <li><a href="image-overlay-light.html">Overlay Light </a></li>
+                                                                <li><a href="image-overlay-dark.html">Overlay Dark </a></li>
+                                                                <li><a href="video-background.html">Video Background </a></li>
+                                                                <li><a href="fixed-image.html">Fixed Image</a></li>
+                                                                <li><a href="overlay-fixed-image.html">Overlay Fixed Image</a></li>
+                                                                <li><a href="text-animation-1.html">Text Animation 1 </a></li>
+                                                                <li><a href="text-animation-2.html">Text Animation 2 </a></li>
+                                                                <li><a href="text-animation-3.html">Text Animation 3 </a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">Menu Style</a>
+                                                            <ul>
+                                                                <li><a href="theme-menu-1.html">Theme Menu 1</a></li>
+                                                                <li><a href="theme-menu-2.html">Theme Menu 2</a></li>
+                                                                <li><a href="theme-menu-3.html">Theme Menu 3</a></li>
+                                                                <li><a href="without-top-bar.html">Without Top Bar</a></li>
+                                                                <li><a href="menu-center.html">Menu Center</a></li>
+                                                                <li><a href="menu-transparent.html">Transparent</a></li>
+                                                                <li><a href="menu-semi-transparent.html">Semi Transparent</a></li>
+                                                                <li><a href="menu-dark.html">Menu Dark</a></li>
+                                                                <li><a href="borderd-menu.html">Menu Border</a></li>
+                                                                <li><a href="menu-top-border.html">Top Border Hover</a></li>
+                                                                <li><a href="menu-sticky.html">Menu Sticky</a></li>
+                                                                <li><a href="menu-non-sticky.html">Menu Non Sticky</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">Page Title</a>
+                                                            <ul>
+                                                                <li><a href="breadcrumb-dark.html">Title Dark</a></li>
+                                                                <li><a href="breadcrumb-fixed.html">Title Fixed</a></li>
+                                                                <li><a href="breadcrumb-image.html">Title Image</a></li>
+                                                                <li><a href="breadcrumb-transparent.html">Title Transparent</a></li>
+                                                                <li><a href="breadcrumb-left.html">Title Left</a></li>
+                                                                <li><a href="breadcrumb-right.html">Title Right</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a href="#">Footer Style</a>
+                                                            <ul>
+                                                                <li><a href="footer-style-1.html">Footer Style 1</a></li>
+                                                                <li><a href="footer-style-2.html">Footer Style 2</a></li>
+                                                                <li><a href="footer-style-3.html">Footer Style 3</a></li>
+                                                                <li><a href="footer-style-4.html">Footer Style 4</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="contact.html">Contact us</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>					
+                                </div>
+                            </div>
                         </div>
-            		</div>
-    			</nav>
-            </div>
-        </div>
-    </footer>
-    <!-- jQuery -->
-    <script src="/static/js/jquery.js"></script>
+                    </div>
+                    <!-- Mobile Menu Area end -->    
+                </header>
+                <!--End of Header Area-->
+                {% block content %}
+                {% endblock %}
+                
+                <!--Footer Widget Area Start-->
+                <div class="footer-widget-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-4">
+                                <div class="single-footer-widget">
+                                    <div class="footer-logo">
+                                        <a href="index.html"><img src="img/logo/footer.png" alt=""></a>
+                                    </div>
+                                    <p>There are many variations of passg of Lorem Ipsum available, but thmajority have suffered altem, </p>
+                                    <div class="social-icons">
+                                        <a href="https://www.facebook.com/smartindiamission/" target="_blank"><i class="zmdi zmdi-facebook"></i></a>
+                                        <a href="https://twitter.com/smartindmission" target="_blank"><i class="zmdi zmdi-twitter"></i></a>
+                                        <a href="https://www.linkedin.com/company-beta/13348689" target="_blank"><i class="zmdi zmdi-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <div class="single-footer-widget">
+                                    <h3>GET IN TOUCH</h3>
+                                    <span><i class="fa fa-phone"></i>0471 2338841, 338840</span>
+                                    <span><i class="fa fa-envelope"></i>info@smartindiamission.org</span>
+                                    <span><i class="fa fa-globe"></i><a href="http://smartindiamission.org/" style="color: white;">www.smartindiamission.org</a></span>
+                                    <span><i class="fa fa-map-marker"></i>Smartindia Mission, Opp. Police Ground, Thycaud PO, Thiruvananthapuram</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 hidden-sm">
+                                <div class="single-footer-widget">
+                                    <h3>Useful Links</h3>
+                                    <ul class="footer-list">
+                                        <li><a href="#">Teachers &amp; Staff</a></li>
+                                        <li><a href="#">Our Courses</a></li>
+                                        <li><a href="#">Courses Categories</a></li>
+                                        <li><a href="#">Support</a></li>
+                                        <li><a href="#">Terms &amp; Conditions</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End of Footer Widget Area-->
+                <!--Footer Area Start-->
+                <footer class="footer-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-7">
+                                <span>Copyright &copy; Smartindia Mission 2017. All right reserved. Created by <a href="#">Smartindia Solutions </a></span>
+                            </div>
+                            <div class="col-md-6 col-sm-5">
+                                <div class="column-right">
+                                    <span>Privacy Policy , Terms &amp; Conditions</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!--End of Footer Area-->
+            </div>   
+            <!--End of Bg White--> 
+        </div>    
+        <!--End of Main Wrapper Area--> 
+        
+        
+		<!-- jquery
+		============================================ -->		
+        <script src="/static/smission/js/vendor/jquery-1.12.4.min.js"></script>
+        
+		<!-- bootstrap JS
+		============================================ -->		
+        <script src="/static/smission/js/bootstrap.min.js"></script>
+        
+        <!-- nivo slider js
+		============================================ -->       
+		<script src="/static/smission/lib/nivo-slider/js/jquery.nivo.slider.js" type="text/javascript"></script>
+		<script src="/static/smission/lib/nivo-slider/home.js" type="text/javascript"></script>
+        
+		<!-- meanmenu JS
+		============================================ -->		
+        <script src="/static/smission/js/jquery.meanmenu.js"></script>
+		
+		<!-- wow JS
+		============================================ -->		
+        <script src="/static/smission/js/wow.min.js"></script>
+        
+		<!-- owl.carousel JS
+		============================================ -->		
+        <script src="/static/smission/js/owl.carousel.min.js"></script>
+        
+		<!-- scrollUp JS
+		============================================ -->		
+        <script src="/static/smission/js/jquery.scrollUp.min.js"></script>
+        
+		<!-- Waypoints JS
+		============================================ -->		
+        <script src="/static/smission/js/waypoints.min.js"></script>
+        
+		<!-- Counterup JS
+		============================================ -->		
+        <script src="/static/smission/js/jquery.counterup.min.js"></script>
+        
+		<!-- Slick JS
+		============================================ -->		
+        <script src="/static/smission/js/slick.min.js"></script>
+        
+		<!-- Animated Headlines JS
+		============================================ -->		
+        <script src="/static/smission/js/animated-headlines.js"></script>
+        
+		<!-- Textilate JS
+		============================================ -->		
+        <script src="/static/smission/js/textilate.js"></script>
+        
+		<!-- Lettering JS
+		============================================ -->		
+        <script src="/static/smission/js/lettering.js"></script>
+        
+		<!-- Video Player JS
+		============================================ -->		
+        <script src="/static/smission/js/jquery.mb.YTPlayer.js"></script>
+        
+		<!-- Mail Chimp JS
+		============================================ -->		
+        <script src="/static/smission/js/jquery.ajaxchimp.min.js"></script>
+        
+		<!-- AJax Mail JS
+		============================================ -->		
+        <script src="/static/smission/js/ajax-mail.js"></script>
+        
+		<!-- plugins JS
+		============================================ -->		
+        <script src="/static/smission/js/plugins.js"></script>
+        
+		<!-- StyleSwitch JS
+		============================================ -->	
+        <script src="/static/smission/js/styleswitch.js"></script>
+        
+		<!-- main JS
+		============================================ -->		
+        <script src="/static/smission/js/main.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/static/js/bootstrap.min.js"></script>
+        <!-- PNotify -->
+        <script src="/static/smission/js/pnotify/dist/pnotify.js"></script>
+        <script src="/static/smission/js/pnotify/dist/pnotify.buttons.js"></script>
+        <script src="/static/smission/js/pnotify/dist/pnotify.nonblock.js"></script>
 
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
-
-</body>
-
+        {% block custom_js %}
+        {% endblock %}
+    </body>
 </html>

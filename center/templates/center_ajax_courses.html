@@ -1,0 +1,34 @@
+<div class="panel">
+    <div class="panel-heading">
+        <h4>Courses </h4>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <th>Code</th>
+                <th>Course</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Date Approved</th>
+                <th>Renewal Date</th>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{course.course.code}}</td>
+                    <td>{{course.course.name}}</td>
+                    <td>{{course.course.duration}}</td>
+                    <td>
+                        {% if course.is_approved == True %} <span class="label label-success">Approved </span>{% else %} <span class="label label-danger"> Not Approved </span>{% endif %}
+                    </td>
+                    <td>{{course.date_approved}}</td>
+                    <td>{{course.expiry_date}}</td>
+                </tr>
+            {% endfor %}    
+            </tbody>
+            
+        </table>   
+    </div>
+</div>
+ 
+

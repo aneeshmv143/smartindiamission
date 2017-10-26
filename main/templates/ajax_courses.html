@@ -1,0 +1,54 @@
+<div class="bio-graph-info">
+	<form id="courseForm" method="POST">{% csrf_token %}
+		<div class="form-group">
+			<table class="table table-bordered">
+			    <tr>
+			        <th>Code</th>
+			        <th>Course</th>
+			        <th>Duration</th>
+			        <th>Option</th>
+			    </tr>
+			    {% for course in courses %}
+			    <tr>
+			    	<td>{{course.code}}</td>
+			    	<td>{{course.name}}</td>
+			    	<td>{{course.duration}}</td>
+			    	<td><input type="checkbox" name="course" value="{{course.pk}}"></td>
+			    </tr>
+			    {% endfor %}
+			</table> 
+		</div>
+		<div class="form-group">
+            <button type="submit" class="btn btn-primary" id="saveBtn">Update Courses</button>
+        </div>
+	</form>
+</div>
+
+<script>
+	$('#courseForm').submit(function(e){
+        e.preventDefault();
+       	$.ajax({
+       		url: '/center/course/update/',
+       		type: 'post',
+       		data: $('#courseForm').serialize(),
+       	})
+       	.done(function(data){
+            if (data.status == false){
+                new PNotify({
+                    title: 'Error in Updation!',
+                    text: data.message,
+                    type: 'danger',
+                    styling: 'bootstrap3'
+                });
+            }
+            else{
+                new PNotify({
+                    title: 'Courses Successfully Updated!',
+                    text: data.message,
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+            }
+        })
+    });
+</script>
